@@ -2,60 +2,49 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func main() {
 
-	// Salute
-	// name := "Matheus"
-	// salute(name)
+	String()
 
-	// Doing integer division
-	numerator := 10
-	denominator := 0
-	result, remainder, error := intDivision(numerator, denominator)
-	// One way to check conditions is with if-else
-	if error != nil {
-		fmt.Println("Error:", error)
-	} else if remainder == 0 {
-		fmt.Printf("The result of %d divided by %d is %d\n", numerator, denominator, result)
-	} else {
-		fmt.Printf("The result of %d divided by %d is %d and the remainder is %d\n", numerator, denominator, result, remainder)
+	concatenateString()
+}
+
+func String() {
+	// Dealing with strings
+	myString := "Matheus"
+	index := myString[0]
+	fmt.Printf("Hex: %x, Char: %c, Decimal: %d, Octal: %o, Type: %T\n", index, index, index, index, index) // Will return the value based on ASCII table	-> x = hex, c -> char, d -> decimal, %o -> octal
+	for k, v := range myString {
+		fmt.Println(k, v)
 	}
-	// another way to do this is using switch
-	switch {
-	case error != nil:
-		fmt.Println("Error:", error)
-	case remainder == 0:
-		fmt.Printf("The result of %d divided by %d is %d\n", numerator, denominator, result)
-	default:
-		fmt.Printf("The result of %d divided by %d is %d and the remainder is %d\n", numerator, denominator, result, remainder)
+
+	// Now with runes -> int32
+	myRune := []rune("Matheus")
+	indexRune := myRune[0]
+	fmt.Printf("Hex: %x, Char: %c, Decimal: %d, Octal: %o, Type: %T\n", indexRune, indexRune, indexRune, indexRune, indexRune) // Will return the value based on Unicode table	-> x = hex, c -> char, d -> decimal, %o -> octal
+	for k, v := range myRune {
+		fmt.Println(k, v)
 	}
 }
 
-func salute(name string) {
-
-	fmt.Printf("Hello %s, it was so a long time\n", name)
-
-	welcomeAgain(name)
-
-}
-
-func welcomeAgain(name string) {
-
-	fmt.Printf("Welcome again, %s!\n", name)
-}
-
-func intDivision(numerator int, denominator int) (int, int, error) {
-	var error error
-	if denominator == 0 {
-		return 0, 0, fmt.Errorf("denominator cannot be zero")
+func concatenateString() {
+	// Concatenating strings
+	newString := []string{"M", "a", "t", "h", "e", "u", "s"}
+	concatString := ""
+	for i := range newString {
+		concatString += newString[i]
 	}
-	result := numerator / denominator
-	remainder := numerator % denominator
+	fmt.Println("Concatenated String:", concatString) // Worst case because it creates a new string every time you concatenate, so it is better to use strings.Builder or bytes.Buffer for large strings
 
-	// nil is used to indicate that there is no error during the execution of the program
-	// if error return nil, it means that there is no error
-	// return the result of the division, remainder an nil
-	return result, remainder, error
+	//  Using strings.Builder
+	newStringBuilder := []string{"M", "a", "t", "h", "e", "u", "s"}
+	stringBuilder := strings.Builder{}
+	for i := range newStringBuilder {
+		stringBuilder.WriteString(newStringBuilder[i])
+	}
+	stringBuilderString := stringBuilder.String()                         // Only now the string is created
+	fmt.Println("Concatenated String with Builder:", stringBuilderString) // Better performance for large strings
 }
